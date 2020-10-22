@@ -1,0 +1,6 @@
+*.import.*
+*.link
+*.log
+*.o
+*.sh
+*.so
