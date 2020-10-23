@@ -7,8 +7,11 @@
      (import chicken)
      (use files posix))
     (chicken-5
-     (import (chicken base) (chicken module) (chicken pathname))
-     (import (chicken process-context))))
+     (import (chicken base)
+             (chicken module)
+             (chicken pathname)
+             (chicken platform)
+             (chicken process-context))))
 
   ;; Chicken's native parameters: command-line-arguments program-name
 
@@ -16,19 +19,16 @@
 
   (define script-file
     (make-parameter
-     (cond-expand
-       (chicken-script
-        (normalize-pathname
-         (let ((file (program-name)))
-           (if (absolute-pathname? file) file
-               (make-absolute-pathname (current-directory) file)))))
-       (else #f))))
+     (and (feature? #:chicken-script)
+          (normalize-pathname
+           (let ((file (program-name)))
+             (if (absolute-pathname? file) file
+                 (make-absolute-pathname (current-directory) file)))))))
 
   (define command-line
     (make-parameter
-     (cond-expand
-       ((and csi (not chicken-script)) '(""))
-       (else (cons (program-name) (command-line-arguments))))))
+     (if (and (feature? #:csi) (not (feature? #:chicken-script))) '("")
+         (cons (program-name) (command-line-arguments)))))
 
   ;;; Derived
 
