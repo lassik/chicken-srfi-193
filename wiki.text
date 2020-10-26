@@ -17,33 +17,36 @@ line]].
 <parameter>(command-line [string-list])</parameter>
 
 Like the standard {{command-line}} procedure in R7RS and R6RS, this
-gives the command line as list of strings, with the first element
-(always present) being the command name and the remaining elements (if
-any) are command arguments. Unlike RnRS {{command-line}}, this is a
-parameter that can be bound to another value by the Scheme programmer
-if desired, for example for subcommand processing.
+gives the command line as list of strings. The first element (always
+present) is the command name and the remaining elements (if any) are
+command arguments.
+
+Unlike RnRS {{command-line}}, this is a parameter that can be bound to
+another value by the Scheme programmer if desired, for example for
+subcommand processing.
 
 The value of this parameter should be a list of one or more strings at
-all times. Neither the strings nor the list should not be mutated. If
-the parameter is rebound to another list, the new list may share
-structure with the old list.
+all times. Neither the strings nor the list should be mutated. If the
+parameter is rebound to another list, the new list is permitted to
+share structure with the old list.
 
 The default value of the parameter is more precisely specified than
 the value of RnRS {{command-line}}. When evaluating code in the csi
-REPL, such as via {{load}}, the command line is a one-element list
-whose only element is a zero-length string.
+REPL, the command line is a one-element list whose only element is a
+zero-length string.
 
-* When running a standalone program compiled via csi, the first
-element is the operating system's {{argv[0]}} and the remaining
-elements are {{argv[1]}} and up. However, {{-:}} arguments that control
-the Chicken runtime system are not part of the list.
+When running a standalone program compiled via csc, the first element
+is the operating system's {{argv[0]}} and the remaining elements are
+{{argv[1]}} and up. However, any {{-:}} arguments that give options
+for the Chicken runtime system are not part of the list.
 
 <procedure>(command-name)</procedure>
 
 Returns a simplified version of {{(car (command-line))}}, respecting
-the current binding of the {{command-line}} parameter. This is
-typically something suitable to display as the program name. For
-example, {{/path/to/foo.scm}} is simplified into {{foo}}.
+the current binding of the {{command-line}} parameter.
+
+This is typically something suitable to display as the program name.
+For example, {{/path/to/foo.scm}} is simplified into {{foo}}.
 
 However, if {{(car (command-line))}} is a zero-length string (such as
 at the csi REPL), {{#f}} is returned to signify "not a command".
