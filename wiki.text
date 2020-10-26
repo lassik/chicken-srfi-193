@@ -58,7 +58,7 @@ the {{command-line}} parameter.
 <parameter>(script-file [string?])</parameter>
 
 If running a Scheme source file in csi, returns an absolute pathname
-of that file as a string. Otherwise returns {(#f}}.
+of that file as a string. Otherwise returns {{#f}}.
 
 In Chicken, this is actually a parameter object and may be set by the
 user.
