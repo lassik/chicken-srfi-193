@@ -19,11 +19,11 @@
 
 (test-group
  "script"
- (test "script-file is missing"
-       #f
-       (script-file))
- (test "script-directory is missing"
-       #f
-       (script-directory)))
+ (test "script-file is given"
+       #t
+       (string? (script-file)))
+ (test "script-directory is given"
+       #t
+       (string? (script-directory))))
 
 (test-exit)
