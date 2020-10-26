@@ -6,7 +6,9 @@
 
 === Introduction
 
-This egg implements SRFI 193: Command line.
+This egg implements
+[[https://srfi.schemers.org/srfi-193/srfi-193.html|SRFI 193: Command
+line]].
 
 === Documentation
 
