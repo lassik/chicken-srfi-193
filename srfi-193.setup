@@ -1,0 +1,2 @@
+;; -*- scheme -*-
+(standard-extension 'srfi-193 "0.1.2")
