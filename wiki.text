@@ -12,7 +12,7 @@ line]].
 
 === Documentation
 
-==== Command procedures
+==== Command
 
 <parameter>(command-line [string-list])</parameter>
 
@@ -53,7 +53,7 @@ at the csi REPL), {{#f}} is returned to signify "not a command".
 Returns {{(cdr (command-line))}}, respecting the current binding of
 the {{command-line}} parameter.
 
-==== Script procedures
+==== Script
 
 <parameter>(script-file [string?])</parameter>
 
