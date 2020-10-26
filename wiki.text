@@ -35,7 +35,7 @@ whose only element is a zero-length string.
 
 * When running a standalone program compiled via csi, the first
 element is the operating system's {{argv[0]}} and the remaining
-elements are {{argv[1]}} and up. Howeve, {{-:}} arguments that control
+elements are {{argv[1]}} and up. However, {{-:}} arguments that control
 the Chicken runtime system are not part of the list.
 
 <procedure>(command-name)</procedure>
