@@ -1,0 +1,6 @@
+;; -*- scheme -*-
+((synopsis "SRFI 193: Command line")
+ (category os)
+ (license "ISC")
+ (author "Lassi Kortela")
+ (test-depends test))

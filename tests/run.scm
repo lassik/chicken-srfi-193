@@ -1,5 +1,10 @@
-(import test)
-(import srfi-193)
+(cond-expand
+ (chicken-4
+  (use test)
+  (use srfi-193))
+ (chicken-5
+  (import test)
+  (import srfi-193)))
 
 (test-group
  "command"
