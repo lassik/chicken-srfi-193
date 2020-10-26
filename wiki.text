@@ -1,16 +1,16 @@
 [[tags: egg]]
 
-= SRFI 193
+== SRFI 193
 
 [[toc:]]
 
-== Introduction
+=== Introduction
 
 This egg implements SRFI 193: Command line.
 
-== Documentation
+=== Documentation
 
-=== Command procedures
+==== Command procedures
 
 <parameter>(command-line [string-list])</parameter>
 
@@ -51,7 +51,7 @@ at the csi REPL), {{#f}} is returned to signify "not a command".
 Returns {{(cdr (command-line))}}, respecting the current binding of
 the {{command-line}} parameter.
 
-=== Script procedures
+==== Script procedures
 
 <parameter>(script-file [string?])</parameter>
 
@@ -71,15 +71,15 @@ Returned strings end with a directory separator so {{string-append}}
 can be used to build pathnames to refer to files in the same directory
 as the script.
 
-== Version History
+=== Version History
 
 * 0.1: First release.
 
-== Author
+=== Author
 
 Lassi Kortela
 
-== License
+=== License
 
   Copyright 2020 Lassi Kortela
 
