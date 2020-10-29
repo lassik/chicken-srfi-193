@@ -78,7 +78,10 @@ as the script.
 
 === Version History
 
-* 0.1: First release.
+* 0.1.3: Add Chicken 4 egg
+* 0.1.2: Fix tests
+* 0.1.1: Fix bug where pre-compiled .so gave incorrect results in csi
+* 0.1: First release
 
 === Author
 
