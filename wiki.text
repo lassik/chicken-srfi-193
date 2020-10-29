@@ -17,28 +17,33 @@ line]].
 <parameter>(command-line [string-list])</parameter>
 
 Like the standard {{command-line}} procedure in R7RS and R6RS, this
-gives the command line as list of strings. The first element (always
+returns the command line as list of strings. The first element (always
 present) is the command name and the remaining elements (if any) are
-command arguments.
+command arguments. Neither the strings nor the list should be mutated.
 
-Unlike RnRS {{command-line}}, this is a parameter that can be bound to
-another value by the Scheme programmer if desired, for example for
-subcommand processing.
+Unlike RnRS {{command-line}} this is a parameter that can be bound to
+another value, e.g. for subcommand processing. If the parameter is
+rebound to another list, the new list may share structure with the old
+list.
 
-The value of this parameter should be a list of one or more strings at
-all times. Neither the strings nor the list should be mutated. If the
-parameter is rebound to another list, the new list is permitted to
-share structure with the old list.
+The initial command line is more precisely specified than the value of
+RnRS {{command-line}}:
 
-The default value of the parameter is more precisely specified than
-the value of RnRS {{command-line}}. When evaluating code in the csi
-REPL, the command line is a one-element list whose only element is a
-zero-length string.
+* When running a standalone program compiled by csc, the first element
+  is the operating system's {{argv[0]}} and the remaining elements are
+  {{argv[1]}} and up. However, any {{-:}} arguments that give options
+  for the Chicken runtime system are not part of the list.
 
-When running a standalone program compiled via csc, the first element
-is the operating system's {{argv[0]}} and the remaining elements are
-{{argv[1]}} and up. However, any {{-:}} arguments that give options
-for the Chicken runtime system are not part of the list.
+* When running a script via {{csi -script file.scm a b c}} or {{csi -s
+  file.scm a b c}} then {{command-line}} is bound to {{'("file.scm"
+  "a" "b" "c")}}.
+
+* When not running a command, {{command-line}} is bound to {{'("")}}.
+  This happens when:
+
+** Loading source files into the {{csi}} REPL via {{csi file.scm}}.
+** Loading source files into the {{csi}} REPL via {{(load "file.scm")}}.
+** Evaluating code in the {{csi}} REPL.
 
 <procedure>(command-name)</procedure>
 
@@ -48,8 +53,8 @@ the current binding of the {{command-line}} parameter.
 This is typically something suitable to display as the program name.
 For example, {{/path/to/foo.scm}} is simplified into {{foo}}.
 
-However, if {{(car (command-line))}} is a zero-length string (such as
-at the csi REPL), {{#f}} is returned to signify "not a command".
+However, if {{(car (command-line))}} is a zero-length string, {{#f}}
+is returned to signify "not a command".
 
 <procedure>(command-args)</procedure>
 
@@ -60,8 +65,9 @@ the {{command-line}} parameter.
 
 <parameter>(script-file [string?])</parameter>
 
-If running a Scheme source file in csi, returns an absolute pathname
-of that file as a string. Otherwise returns {{#f}}.
+If running a source file as a script via {{csi -script file.scm}} or
+{{csi -s file.scm}}, returns an absolute pathname of that file as a
+string. Otherwise returns {{#f}}.
 
 In Chicken, this is actually a parameter object and may be set by the
 user.
@@ -69,18 +75,20 @@ user.
 <procedure>(script-directory)</procedure>
 
 Returns {{(script-file)}} without the filename part, respecting the
-current binding of the {{script-file}} parameter. Returns {{#f}} in
-any situation where {{(script-file)}} returns {{#f}}.
+current binding of the {{script-file}} parameter.
 
-Returned strings end with a directory separator so {{string-append}}
-can be used to build pathnames to refer to files in the same directory
-as the script.
+The string ends with a directory separator so {{string-append}} can be
+used to build pathnames to refer to files in the same directory as the
+script.
+
+Returns {{#f}} in any situation where {{(script-file)}} returns
+{{#f}}.
 
 === Version History
 
 * 0.1.3: Add Chicken 4 egg
 * 0.1.2: Fix tests
-* 0.1.1: Fix bug where pre-compiled .so gave incorrect results in csi
+* 0.1.1: Fix bug where pre-compiled .so gave incorrect results in {{csi}}
 * 0.1: First release
 
 === Author
